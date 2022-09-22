@@ -1,0 +1,87 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Media Items Restful API",
+    "description": "Media Items RESTFUL API, consumes https://anilist.gitbook.io/anilist-apiv2-docs/",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:4000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "MediaItems",
+      "description": "API for latest 10 media items"
+    }
+  ],
+  "schemes": ["http"],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "paths": {
+    "/media-items": {
+      "get": {
+        "tags": ["Media Items"],
+        "summary": "Get latest 10 media items from AniList",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/MediaItems"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "MediaItem": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "title": {
+          "type": "object",
+          "properties": {
+            "english": {
+              "type": "string"
+            }
+          }
+        },
+        "coverImage": {
+          "type": "object",
+          "properties": {
+            "medium": {
+              "type": "string"
+            }
+          }
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "MediaItems": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "object",
+          "properties": {
+            "Page": {
+              "type": "object",
+              "properties": {
+                "media": {
+                  "type": "object",
+                  "$ref": "#/definitions/MediaItem"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
